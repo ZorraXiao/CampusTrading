@@ -86,10 +86,10 @@ function handleClear() {
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 6px;
+  padding: 6px 8px;
   background-color: var(--ct-bg-surface);
   border: 1px solid var(--ct-border);
-  border-radius: 10px;
+  border-radius: var(--ct-radius-md);
   transition: var(--ct-transition);
 }
 
@@ -99,6 +99,7 @@ function handleClear() {
 
 .ct-search-bar:focus-within {
   border-color: var(--ct-accent);
+  box-shadow: 0 0 0 3px rgba(74, 56, 43, 0.07);
 }
 
 .ct-search-bar__filters {

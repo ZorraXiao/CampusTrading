@@ -1,38 +1,49 @@
-/* 校园交易平台 · 极简高信噪比设计令牌（Zinc 中性色 + 低饱和深靛蓝强调色） */
+/* 校园交易平台 · Editorial 暖调纸感设计令牌（Warm Paper 中性色 + 暖棕咖强调色） */
 :root {
-  /* 画布与表面色 */
-  --ct-bg-canvas: #FAFAFA;
-  --ct-bg-surface: #FFFFFF;
-  --ct-bg-subtle: #F4F4F5;
+  /* 画布与纸面层级 */
+  --ct-bg-canvas: #FAF7F2;
+  --ct-bg-surface: #FFFEFB;
+  --ct-bg-subtle: #F3EDE4;
+  --ct-bg-elevated: #EFE7DD;
+  --ct-header-bg: rgba(250, 247, 242, 0.86);
 
-  /* 文字色阶 */
-  --ct-text-primary: #09090B;
-  --ct-text-body: #27272A;
-  --ct-text-secondary: #52525B;
-  --ct-text-tertiary: #71717A;
-  --ct-text-placeholder: #A1A1AA;
+  /* 文字墨色阶 */
+  --ct-text-primary: #1E1A17;
+  --ct-text-body: #332C27;
+  --ct-text-secondary: #5E554E;
+  --ct-text-tertiary: #8C8279;
+  --ct-text-placeholder: #B2A79C;
 
-  /* 1px 极细边框色阶 */
-  --ct-border: #E4E4E7;
-  --ct-border-strong: #D4D4D8;
-  --ct-border-dashed: #D4D4D8;
+  /* 1px 暖灰细框与档案虚线分割 */
+  --ct-border: #E5DDD2;
+  --ct-border-strong: #D2C6B6;
+  --ct-border-dashed: #D5C9B8;
 
-  /* 唯一强调色：低饱和度深靛蓝 */
-  --ct-accent: #2E4F8F;
-  --ct-accent-hover: #233E73;
-  --ct-accent-active: #1C3260;
-  --ct-accent-soft: #EEF2FA;
+  /* 核心强调色：低饱和暖棕咖 */
+  --ct-accent: #4A382B;
+  --ct-accent-hover: #35271D;
+  --ct-accent-active: #281D15;
+  --ct-accent-soft: #EFE7DD;
 
-  /* 低饱和度语义色（仅用于状态圆点与系统提示） */
-  --ct-success: #2F7D4F;
-  --ct-warning: #B26B00;
-  --ct-danger: #C0362C;
-  --ct-info: #71717A;
-  --ct-violet: #7C6BB0;
+  /* 低饱和自然语义色（仅用于状态标签与系统反馈） */
+  --ct-success: #4B7A63;
+  --ct-success-soft: #ECF3EF;
+  --ct-warning: #B58338;
+  --ct-warning-soft: #F7F0E4;
+  --ct-danger: #B86B63;
+  --ct-danger-soft: #F7ECEA;
+  --ct-info: #8C8279;
+  --ct-info-soft: #F3EDE4;
+  --ct-violet: #7D6B7D;
+  --ct-violet-soft: #F2EEF2;
 
-  /* 字体与字号 */
-  --ct-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  /* 杂志级字体混排栈（含离线优雅降级） */
+  --ct-font-display: "Instrument Serif", "Playfair Display", "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+  --ct-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif;
+  --ct-font-sans: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --ct-font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* 字号与排版节律 */
   --ct-font-size-xs: 12px;
   --ct-font-size-sm: 13px;
   --ct-font-size-base: 14px;
@@ -41,29 +52,30 @@
   --ct-font-size-xl: 20px;
   --ct-font-size-2xl: 24px;
   --ct-font-size-3xl: 30px;
-  --ct-font-size-display: clamp(34px, 5vw, 52px);
-  --ct-line-height-base: 1.6;
-  --ct-tracking-tight: -0.025em;
+  --ct-font-size-display: clamp(34px, 4.8vw, 52px);
+  --ct-line-height-base: 1.65;
+  --ct-tracking-tight: -0.02em;
 
   /* 圆角规范 */
+  --ct-radius-xs: 4px;
   --ct-radius-sm: 6px;
   --ct-radius-md: 8px;
   --ct-radius-lg: 12px;
   --ct-radius-round: 9999px;
 
-  /* 布局尺寸、微交互与极轻浮层阴影 */
+  /* 布局尺寸、微交互与极轻浮层托底 */
   --ct-page-max-width: 1120px;
   --ct-page-padding-x: 24px;
-  --ct-header-height: 56px;
+  --ct-header-height: 60px;
   --ct-transition: all 200ms ease;
-  --ct-shadow-sm: 0 1px 2px rgba(9, 9, 11, 0.04);
-  --ct-shadow-md: 0 4px 12px rgba(9, 9, 11, 0.05);
+  --ct-shadow-sm: 0 1px 2px rgba(30, 26, 23, 0.03);
+  --ct-shadow-md: 0 6px 18px rgba(30, 26, 23, 0.06);
 
   /* 向后兼容旧令牌别名（避免第三方或业务模块引用失效） */
   --ct-color-primary: var(--ct-accent);
   --ct-color-primary-hover: var(--ct-accent-hover);
   --ct-color-primary-active: var(--ct-accent-active);
-  --ct-color-primary-light: #D5DCE9;
+  --ct-color-primary-light: #DBD7D3;
   --ct-color-primary-lighter: var(--ct-accent-soft);
   --ct-color-success: var(--ct-success);
   --ct-color-warning: var(--ct-warning);
@@ -75,58 +87,58 @@
   --ct-border-color-light: var(--ct-bg-subtle);
   --ct-font-family: var(--ct-font-sans);
 
-  /* Element Plus 核心变量覆写（消除默认高饱和蓝与厚重阴影） */
+  /* Element Plus 核心变量覆写（消除默认冷蓝与冷灰质感） */
   --el-color-primary: var(--ct-accent);
-  --el-color-primary-light-3: #6D84B1;
-  --el-color-primary-light-5: #97A7C7;
-  --el-color-primary-light-7: #C0CADD;
-  --el-color-primary-light-8: #D5DCE9;
-  --el-color-primary-light-9: #EEF2FA;
+  --el-color-primary-light-3: #80736A;
+  --el-color-primary-light-5: #A49B94;
+  --el-color-primary-light-7: #C8C3BE;
+  --el-color-primary-light-8: #DBD7D3;
+  --el-color-primary-light-9: #EFE7DD;
   --el-color-primary-dark-2: var(--ct-accent-hover);
 
   --el-color-success: var(--ct-success);
-  --el-color-success-light-3: #6DA484;
-  --el-color-success-light-5: #97BEA7;
-  --el-color-success-light-7: #C1D8CA;
-  --el-color-success-light-8: #D5E5DC;
-  --el-color-success-light-9: #EAF2ED;
-  --el-color-success-dark-2: #26643F;
+  --el-color-success-light-3: #81A292;
+  --el-color-success-light-5: #A5BDB1;
+  --el-color-success-light-7: #C9D7D0;
+  --el-color-success-light-8: #DBE4E0;
+  --el-color-success-light-9: #ECF3EF;
+  --el-color-success-dark-2: #3B614F;
 
   --el-color-warning: var(--ct-warning);
-  --el-color-warning-light-3: #C9974D;
-  --el-color-warning-light-5: #D9B580;
-  --el-color-warning-light-7: #E8D3B3;
-  --el-color-warning-light-8: #F0E1CC;
-  --el-color-warning-light-9: #F7F0E6;
-  --el-color-warning-dark-2: #8E5600;
+  --el-color-warning-light-3: #CCA874;
+  --el-color-warning-light-5: #DAC19B;
+  --el-color-warning-light-7: #E9DAC3;
+  --el-color-warning-light-8: #F0E6D7;
+  --el-color-warning-light-9: #F7F0E4;
+  --el-color-warning-dark-2: #91692D;
 
   --el-color-danger: var(--ct-danger);
-  --el-color-danger-light-3: #D3726B;
-  --el-color-danger-light-5: #DF9B95;
-  --el-color-danger-light-7: #ECC3C0;
-  --el-color-danger-light-8: #F2D7D5;
-  --el-color-danger-light-9: #F9EBEA;
-  --el-color-danger-dark-2: #9A2B23;
+  --el-color-danger-light-3: #CD9792;
+  --el-color-danger-light-5: #DCACA7;
+  --el-color-danger-light-7: #EACFD0;
+  --el-color-danger-light-8: #F1DFDD;
+  --el-color-danger-light-9: #F7ECEA;
+  --el-color-danger-dark-2: #93564F;
 
   --el-color-error: var(--ct-danger);
-  --el-color-error-light-3: #D3726B;
-  --el-color-error-light-5: #DF9B95;
-  --el-color-error-light-7: #ECC3C0;
-  --el-color-error-light-8: #F2D7D5;
-  --el-color-error-light-9: #F9EBEA;
-  --el-color-error-dark-2: #9A2B23;
+  --el-color-error-light-3: #CD9792;
+  --el-color-error-light-5: #DCACA7;
+  --el-color-error-light-7: #EACFD0;
+  --el-color-error-light-8: #F1DFDD;
+  --el-color-error-light-9: #F7ECEA;
+  --el-color-error-dark-2: #93564F;
 
   --el-color-info: var(--ct-info);
-  --el-color-info-light-3: #9C9CA2;
-  --el-color-info-light-5: #B8B8BC;
-  --el-color-info-light-7: #D4D4D7;
-  --el-color-info-light-8: #E3E3E4;
-  --el-color-info-light-9: #F1F1F2;
-  --el-color-info-dark-2: #5A5A62;
+  --el-color-info-light-3: #AFA7A1;
+  --el-color-info-light-5: #C6C0BC;
+  --el-color-info-light-7: #DDDAD7;
+  --el-color-info-light-8: #E8E6E4;
+  --el-color-info-light-9: #F3EDE4;
+  --el-color-info-dark-2: #706861;
 
   --el-text-color-primary: var(--ct-text-primary);
   --el-text-color-regular: var(--ct-text-body);
-  --el-text-color-secondary: var(--ct-text-tertiary);
+  --el-text-color-secondary: var(--ct-text-secondary);
   --el-text-color-placeholder: var(--ct-text-placeholder);
   --el-text-color-disabled: var(--ct-text-placeholder);
 
@@ -150,14 +162,14 @@
   --el-bg-color-overlay: var(--ct-bg-surface);
 
   --el-border-radius-base: var(--ct-radius-sm);
-  --el-border-radius-small: 4px;
-  --el-border-radius-round: 20px;
+  --el-border-radius-small: var(--ct-radius-xs);
+  --el-border-radius-round: var(--ct-radius-round);
   --el-font-family: var(--ct-font-sans);
   --el-transition-duration: 200ms;
   --el-transition-duration-fast: 200ms;
 
-  --el-box-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 4px 12px rgba(9, 9, 11, 0.05);
-  --el-box-shadow-light: 0 1px 2px rgba(9, 9, 11, 0.04), 0 4px 12px rgba(9, 9, 11, 0.05);
-  --el-box-shadow-lighter: 0 1px 2px rgba(9, 9, 11, 0.04), 0 4px 12px rgba(9, 9, 11, 0.05);
-  --el-box-shadow-dark: 0 1px 2px rgba(9, 9, 11, 0.04), 0 4px 12px rgba(9, 9, 11, 0.05);
+  --el-box-shadow: 0 4px 16px rgba(30, 26, 23, 0.06);
+  --el-box-shadow-light: 0 4px 16px rgba(30, 26, 23, 0.06);
+  --el-box-shadow-lighter: 0 4px 16px rgba(30, 26, 23, 0.06);
+  --el-box-shadow-dark: 0 4px 16px rgba(30, 26, 23, 0.06);
 }

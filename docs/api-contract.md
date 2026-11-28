@@ -39,6 +39,7 @@
 | `location` | string | 丢失 / 拾取地点（≤ 100） |
 | `contact_info` | string | 发布者联系方式快照（≤ 100） |
 | `description` | string | 详细描述 |
+| `image_url` | string \| null | 物品图片 URL（发布时上传，可选；为空前端展示「暂无图像」占位） |
 | `status` | string | 状态：`searching` / `unclaimed` / `resolved` |
 | `resolved_at` | string \| null | 完结时间（UTC） |
 | `created_at` | string | 发布时间（UTC） |
@@ -80,6 +81,7 @@
       "location": "第二教学楼 302 教室",
       "contact_info": "13800000002",
       "description": "杯身贴有航天主题贴纸……",
+      "image_url": null,
       "status": "searching",
       "resolved_at": null,
       "created_at": "2026-11-25T08:30:00Z",
@@ -110,11 +112,13 @@
   "item_name": "黑色不锈钢保温杯",
   "location": "第二教学楼 302 教室",
   "contact_info": "13800000002",
-  "description": "杯身贴有航天主题贴纸……"
+  "description": "杯身贴有航天主题贴纸……",
+  "image_url": "https://cdn.example.com/lost-found/xxx.jpg"
 }
 ```
 
 - `publisher_id` 由后端从 token 解析，不由前端传入。
+- `image_url` 可选，不上传则为 `null`（真实接口建议上传到对象存储后返回可访问 URL）。
 - 后端按 `item_type` 初始化状态：`lost` → `searching`，`found` → `unclaimed`。
 - 响应 `data`：创建后的完整对象。
 
@@ -147,6 +151,7 @@
 | `end_location` | string | 送达终点（≤ 100） |
 | `fee_cents` | int | 跑腿费（分，> 0） |
 | `item_desc` | string | 物品及任务说明 |
+| `image_url` | string \| null | 物品图片 URL（发布时上传，可选；为空前端展示「暂无图像」占位） |
 | `contact_info` | string | 发布者联系方式快照（≤ 100） |
 | `status` | string | 状态：`pending` / `in_progress` / `pending_confirm` / `completed` |
 | `accepted_at` | string \| null | 接单时间（UTC） |
@@ -198,11 +203,13 @@ pending（待接单）──接单──▶ in_progress（进行中）──确�
   "end_location": "梅园 5 栋楼下",
   "fee_cents": 500,
   "item_desc": "代取中号快递一个，18 点前送达即可。",
-  "contact_info": "13800000003"
+  "contact_info": "13800000003",
+  "image_url": "https://cdn.example.com/errands/xxx.jpg"
 }
 ```
 
 - `publisher_id` 由后端从 token 解析。
+- `image_url` 可选，不上传则为 `null`。
 - 后端初始化 `status = pending`，`accepter_id` 等为 `null`。
 - 校验 `fee_cents > 0`（`400` 否则）。
 - 响应 `data`：创建后的完整对象。

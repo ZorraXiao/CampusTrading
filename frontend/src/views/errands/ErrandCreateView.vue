@@ -3,6 +3,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { createErrand } from '@/api/errand'
+import ImageUploadField from '@/components/ImageUploadField.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { yuanToCents } from '@/utils/format'
 
@@ -17,6 +18,7 @@ const form = reactive({
   fee: '',
   item_desc: '',
   contact_info: '',
+  image_url: '',
 })
 
 function validateFee(_rule, value, callback) {
@@ -62,6 +64,7 @@ async function handleSubmit() {
       fee_cents: yuanToCents(String(form.fee).trim()),
       item_desc: form.item_desc.trim(),
       contact_info: form.contact_info.trim(),
+      image_url: form.image_url || null,
     })
     ElMessage.success('发布成功')
     router.replace(`/errands/${created.id}`)
@@ -139,6 +142,10 @@ async function handleSubmit() {
               maxlength="100"
               show-word-limit
             />
+          </el-form-item>
+
+          <el-form-item label="物品图片" prop="image_url">
+            <ImageUploadField v-model="form.image_url" />
           </el-form-item>
 
           <div class="create-form__actions">

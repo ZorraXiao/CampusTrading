@@ -81,14 +81,14 @@ const resolvedMeta = computed(() => {
   align-items: center;
   gap: 6px;
   height: 22px;
-  padding: 0 8px;
+  padding: 0 9px;
   font-size: var(--ct-font-size-xs);
   font-weight: 500;
   line-height: 1;
-  border-radius: var(--ct-radius-sm);
+  border-radius: var(--ct-radius-round);
   border: 1px solid var(--ct-border);
   background-color: var(--ct-bg-canvas);
-  color: #3F3F46;
+  color: var(--ct-text-secondary);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
   transition: var(--ct-transition);
@@ -98,44 +98,61 @@ const resolvedMeta = computed(() => {
   width: 6px;
   height: 6px;
   border-radius: var(--ct-radius-round);
-  background-color: var(--dot-color, #A1A1AA);
+  background-color: var(--dot-color, var(--ct-info));
   flex-shrink: 0;
 }
 
 .ct-status-tag.is-success {
   --dot-color: var(--ct-success);
+  background-color: var(--ct-success-soft);
+  border-color: #CFE0D6;
+  color: #355947;
 }
 
 .ct-status-tag.is-warning {
   --dot-color: var(--ct-warning);
+  background-color: var(--ct-warning-soft);
+  border-color: #E6D5B8;
+  color: #845D22;
 }
 
 .ct-status-tag.is-primary {
   --dot-color: var(--ct-accent);
+  background-color: var(--ct-accent-soft);
+  border-color: #D8CBBF;
+  color: var(--ct-accent);
 }
 
 .ct-status-tag.is-info {
-  --dot-color: #A1A1AA;
+  --dot-color: var(--ct-info);
+  background-color: var(--ct-info-soft);
+  border-color: var(--ct-border);
+  color: var(--ct-text-secondary);
 }
 
 .ct-status-tag.is-danger {
   --dot-color: var(--ct-danger);
-  color: var(--ct-danger);
+  background-color: var(--ct-danger-soft);
+  border-color: #E6CBC7;
+  color: #8F4A43;
 }
 
 .ct-status-tag.is-pending-confirm {
   --dot-color: var(--ct-violet);
+  background-color: var(--ct-violet-soft);
+  border-color: #DDD4DD;
+  color: #5C4D5C;
 }
 
 .ct-status-tag.is-size-small {
   height: 20px;
-  padding: 0 6px;
+  padding: 0 7px;
   font-size: 11px;
 }
 
 .ct-status-tag.is-size-large {
   height: 26px;
-  padding: 0 10px;
+  padding: 0 11px;
   font-size: var(--ct-font-size-sm);
 }
 
@@ -144,8 +161,8 @@ const resolvedMeta = computed(() => {
 }
 
 .ct-status-tag.is-effect-dark {
-  background-color: #18181B;
-  border-color: #18181B;
-  color: #FFFFFF;
+  background-color: var(--ct-text-primary);
+  border-color: var(--ct-text-primary);
+  color: var(--ct-bg-surface);
 }
 </style>

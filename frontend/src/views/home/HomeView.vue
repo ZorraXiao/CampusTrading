@@ -1,11 +1,12 @@
 <script setup>
-import { ArrowRight, ArrowUpRight, Bike, FileText, PackageSearch, Plus, ShoppingBag } from 'lucide-vue-next'
+import { ArrowRight, ArrowUpRight, Bike, FileText, MapPin, PackageSearch, Plus, ShoppingBag } from 'lucide-vue-next'
+import EditorialIllustration from '@/components/EditorialIllustration.vue'
 import StatusTag from '@/components/StatusTag.vue'
 
 const previewRows = [
-  { id: 1, status: 'on_sale', widthMain: '64%', widthSub: '38%' },
-  { id: 2, status: null, widthMain: '52%', widthSub: '32%' },
-  { id: 3, status: 'off_shelf', widthMain: '58%', widthSub: '42%' },
+  { id: 1, status: 'on_sale', widthMain: '64%', widthSub: '38%', tint: '#EFE7DD' },
+  { id: 2, status: null, widthMain: '52%', widthSub: '32%', tint: '#DCE8E1' },
+  { id: 3, status: 'off_shelf', widthMain: '58%', widthSub: '42%', tint: '#F7F0E4' },
 ]
 
 const flowSteps = [
@@ -26,39 +27,85 @@ const shortcuts = [
 <template>
   <div class="home-page">
     <section class="home-hero">
-      <p class="home-hero__eyebrow">面向本校师生 · 校内闭环</p>
-      <h1 class="home-hero__title">
-        让闲置、失物与跑腿，<br />在校园里就近流转。
-      </h1>
-      <p class="home-hero__desc">
-        校园交易平台连接同校师生：发布闲置、登记失物、委托跑腿，从沟通到交付都在校内完成。
-      </p>
-      <div class="home-hero__actions">
-        <router-link to="/products">
-          <el-button type="primary" size="large" class="home-hero__primary-btn">
-            <span>浏览二手好物</span>
-            <ArrowRight :size="16" :stroke-width="1.5" />
-          </el-button>
-        </router-link>
-        <router-link to="/products/create">
-          <el-button size="large">发布闲置</el-button>
-        </router-link>
+      <div class="home-hero__grid">
+        <div class="home-hero__copy">
+          <p class="home-hero__eyebrow">面向本校师生 · 校内闭环</p>
+          <h1 class="home-hero__title">
+            让闲置、失物与跑腿，<br />在校园里就近流转。
+          </h1>
+          <p class="home-hero__desc">
+            校园交易平台连接同校师生：发布闲置好物、登记寻物招领、委托顺路跑腿，从线下联系到当面交付都在校内安心完成。
+          </p>
+          <div class="home-hero__actions">
+            <router-link to="/products">
+              <el-button type="primary" size="large" round class="home-hero__primary-btn">
+                <span>浏览二手好物</span>
+                <ArrowRight :size="16" :stroke-width="1.5" />
+              </el-button>
+            </router-link>
+            <router-link to="/products/create">
+              <el-button size="large" round>发布闲置</el-button>
+            </router-link>
+          </div>
+        </div>
+
+        <div class="home-collage" aria-hidden="true">
+          <div class="collage-card collage-card--main">
+            <span class="collage-tape" />
+            <div class="collage-frame">
+              <img
+                src="/illustrations/campus-desk-books.jpg"
+                alt=""
+                class="collage-img is-cropped"
+              />
+            </div>
+            <div class="collage-caption">
+              <span>闲置书刊与桌面好物</span>
+            </div>
+          </div>
+
+          <div class="collage-card collage-card--sub">
+            <div class="collage-frame">
+              <img
+                src="/illustrations/campus-errand-bike.jpg"
+                alt=""
+                class="collage-img is-cropped-lg"
+              />
+            </div>
+            <div class="collage-caption">
+              <span>校园顺路互助</span>
+            </div>
+          </div>
+
+          <EditorialIllustration scene="stamp" :size="92" class="collage-stamp" />
+        </div>
       </div>
     </section>
 
     <section class="home-bento" aria-label="核心服务入口">
       <article class="bento-card bento-card--trade">
         <div class="bento-card__top">
-          <span class="bento-card__icon" aria-hidden="true">
-            <ShoppingBag :size="16" :stroke-width="1.5" />
-          </span>
+          <div class="bento-card__head">
+            <span class="ct-mono bento-card__num">01</span>
+            <span class="bento-card__icon" aria-hidden="true">
+              <ShoppingBag :size="16" :stroke-width="1.5" />
+            </span>
+          </div>
           <h2 class="bento-card__title bento-card__title--lg">二手交易</h2>
-          <p class="bento-card__desc">教材、数码、宿舍好物，同校面交更放心。</p>
+          <p class="bento-card__desc">教材教辅、数码外设、宿舍日常好物，同校当面验货交付更放心。</p>
+        </div>
+
+        <div class="bento-visual bento-visual--lg" aria-hidden="true">
+          <img
+            src="/illustrations/campus-desk-books.jpg"
+            alt=""
+            class="bento-visual__img is-cropped"
+          />
         </div>
 
         <div class="bento-preview" aria-hidden="true">
           <div v-for="row in previewRows" :key="row.id" class="bento-preview__row">
-            <span class="bento-preview__thumb" />
+            <span class="bento-preview__thumb" :style="{ backgroundColor: row.tint }" />
             <div class="bento-preview__lines">
               <span class="bento-preview__bar" :style="{ width: row.widthMain }" />
               <span class="bento-preview__bar is-sub" :style="{ width: row.widthSub }" />
@@ -81,41 +128,77 @@ const shortcuts = [
 
       <article class="bento-card bento-card--lost-found">
         <div class="bento-card__top">
-          <span class="bento-card__icon" aria-hidden="true">
-            <PackageSearch :size="16" :stroke-width="1.5" />
-          </span>
+          <div class="bento-card__head">
+            <span class="ct-mono bento-card__num">02</span>
+            <span class="bento-card__icon" aria-hidden="true">
+              <PackageSearch :size="16" :stroke-width="1.5" />
+            </span>
+          </div>
           <h2 class="bento-card__title">失物招领</h2>
-          <p class="bento-card__desc">丢了东西先来这里看看，捡到物品一键登记。</p>
+          <p class="bento-card__desc">丢了校园卡、钥匙或教材先来检索，拾获物品一键登记招领。</p>
+          <div class="bento-card__tags">
+            <StatusTag type="lost_found" status="searching" size="small" />
+            <StatusTag type="lost_found" status="unclaimed" size="small" />
+          </div>
         </div>
-        <div class="bento-card__footer">
+
+        <div class="bento-visual" aria-hidden="true">
+          <img
+            src="/illustrations/campus-lost-keys.jpg"
+            alt=""
+            class="bento-visual__img"
+          />
+        </div>
+
+        <div class="bento-card__footer bento-card__footer--split">
           <router-link to="/lost-found" class="ct-link">
             <span>查看信息大厅</span>
             <ArrowRight :size="15" :stroke-width="1.5" />
           </router-link>
+          <router-link to="/lost-found/create" class="bento-card__sublink">登记失物</router-link>
         </div>
       </article>
 
       <article class="bento-card bento-card--errands">
         <div class="bento-card__top">
-          <span class="bento-card__icon" aria-hidden="true">
-            <Bike :size="16" :stroke-width="1.5" />
-          </span>
+          <div class="bento-card__head">
+            <span class="ct-mono bento-card__num">03</span>
+            <span class="bento-card__icon" aria-hidden="true">
+              <Bike :size="16" :stroke-width="1.5" />
+            </span>
+          </div>
           <h2 class="bento-card__title">跑腿服务</h2>
-          <p class="bento-card__desc">取快递、带饭、代送文件，顺路的同学就能接单。</p>
+          <p class="bento-card__desc">取快递、食堂带饭、代送纸质材料，顺路的同学即可接单互助。</p>
+          <div class="bento-route-pill">
+            <MapPin :size="13" :stroke-width="1.5" />
+            <span>驿站 / 食堂 / 教学楼 → 宿舍楼下</span>
+          </div>
         </div>
-        <div class="bento-card__footer">
+
+        <div class="bento-visual" aria-hidden="true">
+          <img
+            src="/illustrations/campus-errand-bike.jpg"
+            alt=""
+            class="bento-visual__img is-cropped-lg"
+          />
+        </div>
+
+        <div class="bento-card__footer bento-card__footer--split">
           <router-link to="/errands" class="ct-link">
             <span>进入任务大厅</span>
             <ArrowRight :size="15" :stroke-width="1.5" />
           </router-link>
+          <router-link to="/errands/create" class="bento-card__sublink">发起跑腿</router-link>
         </div>
       </article>
 
       <article class="bento-card bento-card--flow">
-        <h3 class="bento-card__section-title">平台闭环</h3>
+        <div class="bento-card__section-head">
+          <h3 class="bento-card__section-title">平台闭环</h3>
+        </div>
         <div class="bento-flow">
           <div v-for="step in flowSteps" :key="step.num" class="bento-flow__step">
-            <span class="ct-mono bento-flow__num">{{ step.num }}</span>
+            <span class="bento-flow__num">{{ step.num }}</span>
             <p class="bento-flow__title">{{ step.title }}</p>
             <p class="bento-flow__desc">{{ step.desc }}</p>
           </div>
@@ -123,7 +206,9 @@ const shortcuts = [
       </article>
 
       <article class="bento-card bento-card--shortcuts">
-        <h3 class="bento-card__section-title">快捷入口</h3>
+        <div class="bento-card__section-head">
+          <h3 class="bento-card__section-title">快捷入口</h3>
+        </div>
         <div class="bento-shortcuts">
           <router-link
             v-for="item in shortcuts"
@@ -150,34 +235,42 @@ const shortcuts = [
 }
 
 .home-hero {
-  padding: 24px 0 56px;
+  padding: 16px 0 40px;
+}
+
+.home-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 36px;
+  align-items: center;
 }
 
 .home-hero__eyebrow {
   font-size: var(--ct-font-size-sm);
   font-weight: 500;
-  color: var(--ct-text-tertiary);
+  color: var(--ct-accent);
 }
 
 .home-hero__title {
   margin-top: 14px;
+  font-family: var(--ct-font-serif);
   font-size: var(--ct-font-size-display);
   font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: var(--ct-tracking-tight);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--ct-text-primary);
 }
 
 .home-hero__desc {
-  margin-top: 20px;
-  max-width: 560px;
-  font-size: var(--ct-font-size-lg);
-  line-height: 1.6;
+  margin-top: 18px;
+  max-width: 540px;
+  font-size: var(--ct-font-size-md);
+  line-height: 1.7;
   color: var(--ct-text-secondary);
 }
 
 .home-hero__actions {
-  margin-top: 32px;
+  margin-top: 28px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -190,7 +283,105 @@ const shortcuts = [
   gap: 8px;
 }
 
+/* 右侧刊物拍立得拼贴区 */
+.home-collage {
+  position: relative;
+  padding: 24px 20px 44px;
+  border: 1px solid var(--ct-border);
+  border-radius: 16px;
+  background-color: rgba(243, 237, 228, 0.55);
+  background-image: radial-gradient(#D5C9B8 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.collage-card {
+  position: relative;
+  background-color: var(--ct-bg-surface);
+  border: 1px solid #DCD1C2;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(30, 26, 23, 0.05);
+}
+
+.collage-card--main {
+  width: 82%;
+  padding: 10px 10px 14px;
+  transform: rotate(-1.8deg);
+  z-index: 1;
+}
+
+.collage-card--sub {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 54%;
+  padding: 8px 8px 11px;
+  transform: rotate(2.6deg);
+  z-index: 2;
+}
+
+.collage-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1.5deg);
+  width: 68px;
+  height: 18px;
+  background-color: rgba(239, 231, 221, 0.88);
+  border: 1px dashed #CBBBA6;
+  border-radius: 2px;
+  z-index: 3;
+}
+
+.collage-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 3px;
+  border: 1px solid var(--ct-border);
+  background-color: var(--ct-bg-canvas);
+}
+
+.collage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.collage-img.is-cropped {
+  transform: scale(1.08);
+}
+
+.collage-img.is-cropped-lg {
+  transform: scale(1.11);
+}
+
+.collage-caption {
+  margin-top: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: var(--ct-font-size-xs);
+  color: var(--ct-text-secondary);
+}
+
+.collage-card--main .collage-caption {
+  justify-content: flex-start;
+  padding-left: 2px;
+}
+
+.collage-stamp {
+  position: absolute;
+  top: -10px;
+  right: 8px;
+  transform: rotate(10deg);
+  z-index: 3;
+  pointer-events: none;
+}
+
 .home-bento {
+  margin-top: 4px;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-template-rows: auto;
@@ -200,6 +391,7 @@ const shortcuts = [
 .bento-card {
   display: flex;
   flex-direction: column;
+  gap: 16px;
   padding: 24px;
   background-color: var(--ct-bg-surface);
   border: 1px solid var(--ct-border);
@@ -229,12 +421,25 @@ const shortcuts = [
 .bento-card--flow {
   grid-column: 1 / 9;
   grid-row: 3;
-  background-color: var(--ct-bg-canvas);
+  background-color: var(--ct-bg-subtle);
 }
 
 .bento-card--shortcuts {
   grid-column: 9 / 13;
   grid-row: 3;
+}
+
+.bento-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bento-card__num {
+  font-size: var(--ct-font-size-xs);
+  font-weight: 500;
+  color: var(--ct-text-tertiary);
 }
 
 .bento-card__icon {
@@ -246,19 +451,21 @@ const shortcuts = [
   border: 1px solid var(--ct-border);
   border-radius: var(--ct-radius-md);
   background-color: var(--ct-bg-canvas);
-  color: var(--ct-text-primary);
+  color: var(--ct-accent);
+  flex-shrink: 0;
 }
 
 .bento-card__title {
-  margin-top: 16px;
-  font-size: 17px;
+  margin-top: 14px;
+  font-family: var(--ct-font-serif);
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: var(--ct-tracking-tight);
+  letter-spacing: -0.015em;
   color: var(--ct-text-primary);
 }
 
 .bento-card__title--lg {
-  font-size: var(--ct-font-size-xl);
+  font-size: 24px;
 }
 
 .bento-card__desc {
@@ -267,23 +474,71 @@ const shortcuts = [
   color: var(--ct-text-secondary);
 }
 
+.bento-card__tags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bento-route-pill {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px dashed var(--ct-border-dashed);
+  border-radius: var(--ct-radius-sm);
+  background-color: var(--ct-bg-canvas);
+  font-size: var(--ct-font-size-xs);
+  color: var(--ct-text-secondary);
+}
+
+/* 档案卡片内插画装裱框 */
+.bento-visual {
+  position: relative;
+  height: 112px;
+  overflow: hidden;
+  border-radius: var(--ct-radius-md);
+  border: 1px solid var(--ct-border);
+  background-color: var(--ct-bg-canvas);
+}
+
+.bento-visual--lg {
+  height: 158px;
+}
+
+.bento-visual__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bento-visual__img.is-cropped {
+  transform: scale(1.08);
+}
+
+.bento-visual__img.is-cropped-lg {
+  transform: scale(1.11);
+}
+
 .bento-preview {
-  margin-top: 20px;
-  padding: 12px 16px;
+  padding: 14px 16px;
   border: 1px dashed var(--ct-border-dashed);
   border-radius: var(--ct-radius-md);
   background-color: var(--ct-bg-canvas);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 11px;
 }
 
 .bento-preview__row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--ct-border);
+  gap: 10px;
+  padding-bottom: 11px;
+  border-bottom: 1px dashed var(--ct-border);
 }
 
 .bento-preview__row:last-child {
@@ -292,10 +547,9 @@ const shortcuts = [
 }
 
 .bento-preview__thumb {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--ct-radius-sm);
-  background-color: var(--ct-bg-subtle);
   border: 1px solid var(--ct-border);
   flex-shrink: 0;
 }
@@ -334,7 +588,8 @@ const shortcuts = [
 
 .bento-card__footer {
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--ct-border-dashed);
   display: flex;
   align-items: center;
 }
@@ -351,24 +606,32 @@ const shortcuts = [
 }
 
 .bento-card__sublink:hover {
-  color: var(--ct-text-primary);
+  color: var(--ct-accent);
+}
+
+.bento-card__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .bento-card__section-title {
-  font-size: var(--ct-font-size-sm);
+  font-family: var(--ct-font-serif);
+  font-size: var(--ct-font-size-md);
   font-weight: 600;
   color: var(--ct-text-primary);
 }
 
 .bento-flow {
-  margin-top: 16px;
+  margin-top: 4px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .bento-flow__step {
   padding: 4px 16px;
-  border-left: 1px solid var(--ct-border);
+  border-left: 1px dashed var(--ct-border-dashed);
 }
 
 .bento-flow__step:first-child {
@@ -382,25 +645,27 @@ const shortcuts = [
 
 .bento-flow__num {
   display: block;
-  font-size: var(--ct-font-size-xs);
-  color: var(--ct-text-tertiary);
+  font-family: var(--ct-font-display);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ct-accent);
 }
 
 .bento-flow__title {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: var(--ct-font-size-base);
   font-weight: 600;
   color: var(--ct-text-primary);
 }
 
 .bento-flow__desc {
-  margin-top: 2px;
+  margin-top: 3px;
   font-size: var(--ct-font-size-xs);
   color: var(--ct-text-secondary);
 }
 
 .bento-shortcuts {
-  margin-top: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -410,10 +675,10 @@ const shortcuts = [
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 9px 8px;
-  margin: 0 -8px;
+  padding: 9px 10px;
+  margin: 0 -10px;
   border-radius: var(--ct-radius-sm);
-  border-bottom: 1px solid var(--ct-border);
+  border-bottom: 1px dashed var(--ct-border);
   font-size: var(--ct-font-size-base);
   color: var(--ct-text-primary);
   transition: var(--ct-transition);
@@ -439,12 +704,21 @@ const shortcuts = [
   transition: var(--ct-transition);
 }
 
+.bento-shortcut:hover .bento-shortcut__icon,
 .bento-shortcut:hover .bento-shortcut__arrow {
   color: var(--ct-accent);
+}
+
+.bento-shortcut:hover .bento-shortcut__arrow {
   transform: translate(1px, -1px);
 }
 
 @media (max-width: 960px) {
+  .home-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
   .bento-card--trade,
   .bento-card--lost-found,
   .bento-card--errands,
@@ -465,9 +739,17 @@ const shortcuts = [
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .home-hero {
-    padding: 12px 0 36px;
+    padding: 12px 0 28px;
+  }
+
+  .collage-card--main {
+    width: 88%;
+  }
+
+  .collage-card--sub {
+    width: 60%;
   }
 
   .bento-flow {

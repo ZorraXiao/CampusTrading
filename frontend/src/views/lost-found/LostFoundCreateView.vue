@@ -3,6 +3,7 @@ import { computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { createLostFoundItem } from '@/api/lostFound'
+import ImageUploadField from '@/components/ImageUploadField.vue'
 import PageHeader from '@/components/PageHeader.vue'
 
 const router = useRouter()
@@ -16,6 +17,7 @@ const form = reactive({
   location: '',
   contact_info: '',
   description: '',
+  image_url: '',
 })
 
 const isLost = computed(() => form.item_type === 'lost')
@@ -58,6 +60,7 @@ async function handleSubmit() {
       location: form.location.trim(),
       contact_info: form.contact_info.trim(),
       description: form.description.trim(),
+      image_url: form.image_url || null,
     })
     ElMessage.success('发布成功')
     router.replace(`/lost-found/${created.id}`)
@@ -134,6 +137,10 @@ async function handleSubmit() {
               maxlength="500"
               show-word-limit
             />
+          </el-form-item>
+
+          <el-form-item label="物品图片" prop="image_url">
+            <ImageUploadField v-model="form.image_url" />
           </el-form-item>
 
           <div class="create-form__actions">

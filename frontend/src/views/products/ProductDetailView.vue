@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import { Image as ImageIcon } from 'lucide-vue-next'
+import EditorialIllustration from '@/components/EditorialIllustration.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import StatusTag from '@/components/StatusTag.vue'
 
@@ -23,8 +23,12 @@ const route = useRoute()
       <div class="ct-panel__body">
         <div class="detail-grid">
           <div class="detail-media" aria-hidden="true">
-            <ImageIcon :size="24" :stroke-width="1.5" />
-            <span>商品图片</span>
+            <span class="detail-media__corner detail-media__corner--tl" />
+            <span class="detail-media__corner detail-media__corner--tr" />
+            <span class="detail-media__corner detail-media__corner--bl" />
+            <span class="detail-media__corner detail-media__corner--br" />
+            <EditorialIllustration scene="books" :size="148" />
+            <span>商品实拍图展示区</span>
           </div>
 
           <div class="ct-kv">
@@ -76,17 +80,51 @@ const route = useRoute()
 }
 
 .detail-media {
+  position: relative;
   aspect-ratio: 4 / 3;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: var(--ct-bg-surface);
+  background-color: var(--ct-bg-canvas);
   border: 1px dashed var(--ct-border-dashed);
   border-radius: var(--ct-radius-md);
   color: var(--ct-text-tertiary);
-  font-size: var(--ct-font-size-sm);
+  font-size: var(--ct-font-size-xs);
+}
+
+.detail-media__corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--ct-border-strong);
+  border-style: solid;
+}
+
+.detail-media__corner--tl {
+  top: 8px;
+  left: 8px;
+  border-width: 1.5px 0 0 1.5px;
+}
+
+.detail-media__corner--tr {
+  top: 8px;
+  right: 8px;
+  border-width: 1.5px 1.5px 0 0;
+}
+
+.detail-media__corner--bl {
+  bottom: 8px;
+  left: 8px;
+  border-width: 0 0 1.5px 1.5px;
+}
+
+.detail-media__corner--br {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 1.5px 1.5px 0;
 }
 
 .detail-actions {

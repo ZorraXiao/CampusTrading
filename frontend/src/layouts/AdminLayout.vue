@@ -128,7 +128,7 @@ function handleLogout() {
 .ct-admin-layout {
   min-height: 100vh;
   display: flex;
-  background-color: var(--ct-bg-surface);
+  background-color: var(--ct-bg-canvas);
 }
 
 .ct-admin-sidebar {
@@ -137,7 +137,7 @@ function handleLogout() {
   position: sticky;
   top: 0;
   height: 100vh;
-  background-color: var(--ct-bg-canvas);
+  background-color: var(--ct-bg-subtle);
   border-right: 1px solid var(--ct-border);
   display: flex;
   flex-direction: column;
@@ -161,13 +161,14 @@ function handleLogout() {
   background-color: var(--ct-bg-surface);
   border: 1px solid var(--ct-border);
   border-radius: 7px;
-  color: var(--ct-text-primary);
+  color: var(--ct-accent);
   flex-shrink: 0;
 }
 
 .ct-admin-sidebar__brand-text {
   display: flex;
   flex-direction: column;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -186,7 +187,7 @@ function handleLogout() {
 
 .ct-admin-nav {
   flex: 1;
-  padding: 12px 8px;
+  padding: 12px 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -201,13 +202,15 @@ function handleLogout() {
 
 .ct-admin-nav__group-label {
   padding: 14px 10px 6px;
-  font-size: var(--ct-font-size-xs);
+  font-family: var(--ct-font-mono);
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.08em;
   color: var(--ct-text-tertiary);
 }
 
 .ct-admin-nav__item {
-  height: 32px;
+  height: 34px;
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -221,7 +224,7 @@ function handleLogout() {
 }
 
 .ct-admin-nav__item:hover {
-  background-color: var(--ct-bg-subtle);
+  background-color: rgba(255, 254, 251, 0.7);
   color: var(--ct-text-primary);
 }
 
@@ -251,8 +254,9 @@ function handleLogout() {
 }
 
 .ct-admin-sidebar__avatar {
-  background-color: var(--ct-bg-subtle);
-  color: var(--ct-text-primary);
+  background-color: var(--ct-bg-surface);
+  border: 1px solid var(--ct-border);
+  color: var(--ct-accent);
   font-size: var(--ct-font-size-xs);
   font-weight: 600;
   flex-shrink: 0;
@@ -283,7 +287,7 @@ function handleLogout() {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  background-color: var(--ct-bg-surface);
+  background-color: var(--ct-bg-canvas);
 }
 
 .ct-admin-header {
@@ -331,8 +335,8 @@ function handleLogout() {
 
 .ct-admin-content {
   flex: 1;
-  padding: 32px;
-  background-color: var(--ct-bg-surface);
+  padding: 28px 32px 40px;
+  background-color: var(--ct-bg-canvas);
 }
 
 @media (max-width: 900px) {

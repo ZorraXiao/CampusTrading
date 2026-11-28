@@ -102,6 +102,10 @@ onMounted(load)
             <StatusTag type="lost_found" :status="item.status" size="small" />
           </div>
 
+          <div v-if="item.image_url" class="detail-image">
+            <img :src="item.image_url" :alt="item.item_name" />
+          </div>
+
           <h2 class="detail-name">{{ item.item_name }}</h2>
 
           <div class="ct-kv detail-kv">
@@ -201,6 +205,20 @@ onMounted(load)
   font-size: var(--ct-font-size-xl);
   font-weight: 600;
   color: var(--ct-text-primary);
+}
+
+.detail-image {
+  margin: 14px 0 16px;
+  border-radius: var(--ct-radius-md);
+  border: 1px solid var(--ct-border);
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
 }
 
 .detail-kv {

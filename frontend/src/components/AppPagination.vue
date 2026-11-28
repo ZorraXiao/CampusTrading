@@ -92,8 +92,10 @@ function handleSizeChange(nextSize) {
 :deep(.el-pager li) {
   min-width: 32px;
   height: 32px;
-  line-height: 32px;
+  line-height: 30px;
+  border: 1px solid transparent;
   border-radius: var(--ct-radius-sm);
+  font-family: var(--ct-font-mono);
   font-weight: 500;
   color: var(--ct-text-secondary);
   font-variant-numeric: tabular-nums;
@@ -106,9 +108,10 @@ function handleSizeChange(nextSize) {
 }
 
 :deep(.el-pager li.is-active) {
-  background-color: var(--ct-accent-soft);
-  color: var(--ct-accent);
-  font-weight: 600;
+  background-color: var(--ct-accent);
+  border-color: var(--ct-accent);
+  color: var(--ct-bg-surface);
+  font-weight: 500;
 }
 
 :deep(.btn-prev),

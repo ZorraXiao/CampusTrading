@@ -1,6 +1,6 @@
 # 校园交易平台 · 前端工程（Vue 3 + Vite）
 
-本项目为校园交易平台前端工程（JavaScript），已完成第二阶段基础框架搭建（项目初始化、请求封装、Pinia 状态管理、公共工具、全站路由守卫、双布局与通用组件）。
+本项目为校园交易平台前端工程（JavaScript），已完成基础框架搭建（项目初始化、请求封装、Pinia 状态管理、公共工具、全站路由守卫、双布局与通用组件），并基于本地 mock 数据完成失物招领、跑腿两个业务模块的完整页面与交互流转。
 
 ---
 
@@ -50,35 +50,44 @@ npm run preview
 frontend/src/
 ├── main.js                   # 入口：挂载 Pinia、Router、Element Plus（zh-cn），接入 401 跳转钩子
 ├── App.vue                   # 根路由出口 <router-view />
+├── api/                      # 接口封装层（页面只依赖此层，不直接引用 mock）
+│   ├── lostFound.js          # 失物招领：列表 / 详情 / 发布 / 完结
+│   ├── errand.js             # 跑腿：列表 / 详情 / 发布 / 接单 / 送达 / 完成
+│   └── mock/                 # 本地 mock 数据源（后端就绪后替换为 request 调用）
+│       ├── lostFound.js
+│       └── errand.js
 ├── styles/
-│   ├── variables.css         # 全局 CSS 变量（Zinc 中性色 + 深靛蓝强调色，覆写 Element Plus 变量）
-│   └── global.css            # 全局基础样式、.ct-container 版心与骨架工具类
+│   ├── variables.css         # Editorial 暖调纸感设计令牌（暖棕咖强调色，覆写 Element Plus 变量）
+│   └── global.css            # 全局基础样式、.ct-page 版心与骨架工具类
 ├── layouts/
 │   ├── MainLayout.vue        # 前台通用布局（吸顶微磨砂顶栏、用户下拉菜单、单行页脚）
 │   └── AdminLayout.vue       # 后台管理布局（左侧极简工作台菜单、面包屑顶栏与退出入口）
-├── components/               # 全站公共组件（成员 3 维护）
+├── components/               # 全站公共组件
 │   ├── AppPagination.vue     # 统一分页器
 │   ├── SearchBar.vue         # 大厅搜索与操作条
 │   ├── StatusTag.vue         # 业务/治理状态标签
 │   ├── EmptyState.vue        # 统一空状态
-│   └── PageHeader.vue        # 统一极简页面头部（支持 eyebrow 或返回链接）
+│   ├── PageHeader.vue        # 统一页面头部（支持 eyebrow 或返回链接）
+│   ├── ItemThumb.vue         # 列表卡片物品缩略图（无图时展示「暂无图像」占位）
+│   ├── ImageUploadField.vue  # 图片上传（本地预览 + 可移除，选填）
+│   └── EditorialIllustration.vue # 编辑部风格插画（stamp/books/lost-found/errands 等场景）
 ├── router/index.js           # 全站路由表与权限守卫（requiresAuth / requiresAdmin / guestOnly）
 ├── stores/auth.js            # 用户认证与资料 Pinia Store（含 localStorage 持久化）
 ├── utils/
 │   ├── request.js            # Axios 实例、Token 注入、FormData 兼容与统一错误处理
 │   └── format.js             # 金额分↔元防精度误差转换、UTC 时间转本地时间
 └── views/                    # 按模块隔离，避免多人并行开发冲突
-    ├── auth/                 # 成员 3：登录/注册（/login）
-    ├── home/                 # 成员 3：首页（/）
-    ├── products/             # 成员 4：商品大厅、发布商品、商品详情（/products*）
-    ├── lost-found/           # 成员 5：失物信息大厅、发布失物、信息详情（/lost-found*）
-    ├── errands/              # 成员 6：跑腿任务大厅、发布跑腿、任务详情（/errands*）
-    ├── profile/              # 成员 6：个人中心、我的发布、我的接单任务（/profile*）
-    ├── admin/                # 成员 6：后台用户与内容管理（/admin/*）
+    ├── auth/                 # 登录/注册（/login）
+    ├── home/                 # 首页（/）
+    ├── products/             # 商品大厅、发布商品、商品详情（/products*）
+    ├── lost-found/           # 失物信息大厅、发布失物、信息详情（/lost-found*）
+    ├── errands/              # 跑腿任务大厅、发布跑腿、任务详情（/errands*）
+    ├── profile/              # 个人中心、我的发布、我的接单任务（/profile*）
+    ├── admin/                # 后台用户与内容管理（/admin/*）
     └── error/                # 404 兜底页
 ```
 
-> **接口与字段约定提醒**：业务接口统一返回 `{ code, message, data }`，JSON 字段为 `snake_case`；所有主键/外键 `id` 按**字符串**处理；商品价格与跑腿费以**整数分**（`price_cents`、`fee_cents`）传输；时间字段为 UTC `ISO 8601`（如 `2026-11-20T08:00:00Z`）。建议第三阶段在 `src/api/` 下按模块拆分接口文件（如 `auth.js`、`products.js`、`lostFound.js`、`errands.js`、`admin.js`）。
+> **接口与字段约定提醒**：业务接口统一返回 `{ code, message, data }`，JSON 字段为 `snake_case`；所有主键/外键 `id` 按**字符串**处理；商品价格与跑腿费以**整数分**（`price_cents`、`fee_cents`）传输；时间字段为 UTC `ISO 8601`（如 `2026-11-20T08:00:00Z`）。失物招领与跑腿模块的接口封装已落在 `src/api/`，字段与接口清单详见仓库根目录的 [接口契约](../docs/api-contract.md)。
 
 ---
 
@@ -174,7 +183,7 @@ const fetchList = () => { /* 请求后端列表 */ }
 
 ## 5. 视觉规范（阶段 2 改版）
 
-- **设计令牌（`styles/variables.css`）**：以 Zinc 中性色（画布 `#FAFAFA`、表面 `#FFFFFF`、弱背景 `#F4F4F5`、主文字 `#09090B`、次级 `#52525B`、辅助 `#71717A`、细边框 `#E4E4E7`）为基础，仅使用低饱和度深靛蓝 `#2E4F8F`（hover `#233E73`，浅底 `#EEF2FA`）作为核心强调色。新增组件与页面请优先引用 `--ct-*` 变量，避免硬编码颜色、渐变或重阴影。
+- **设计令牌（`styles/variables.css`）**：Editorial 暖调纸感风格——画布 `#FAF7F2`、纸面 `#FFFEFB`、主文字 `#1E1A17`、次级 `#5E554E`、辅助 `#8C8279`、细框 `#E5DDD2`，核心强调色为低饱和暖棕咖 `#4A382B`（hover `#35271D`，浅底 `#EFE7DD`）。字体为杂志级混排（标题衬线 `--ct-font-display`、正文无衬线 `--ct-font-sans`、等宽数字 `--ct-font-mono`）。新增组件与页面请优先引用 `--ct-*` 变量，避免硬编码颜色、渐变或重阴影。
 - **图标规范**：全站统一使用 `lucide-vue-next`，严禁使用 Emoji 作为界面图标，图标统一设置细线宽 `:stroke-width="1.5"`：
   ```vue
   <script setup>
@@ -207,3 +216,22 @@ const fetchList = () => { /* 请求后端列表 */ }
   </PageHeader>
   ```
   详情或发布页可传入 `:back="{ to: '/products', label: '商品大厅' }"` 替代 `eyebrow`。
+
+---
+
+## 6. 接口对接（mock → 真实接口）
+
+失物招领、跑腿两个模块的接口封装已按「页面只依赖 `src/api/*.js`，不直接引用 mock」的方式组织：
+
+```text
+src/api/
+├── lostFound.js   # fetchLostFoundList / fetchLostFoundDetail / createLostFoundItem / resolveLostFoundItem
+├── errand.js      # fetchErrandList / fetchErrandDetail / createErrand / acceptErrand / deliverErrand / completeErrand
+└── mock/
+    ├── lostFound.js   # 本地 mock 数据与状态流转（含若干条演示数据）
+    └── errand.js      # 本地 mock 数据与状态流转
+```
+
+- 每个封装函数内部目前返回 mock 结果，并以 `// TODO(阶段3): return request.get(...)` 标注了对应的真实请求。
+- 后端按 [接口契约](../docs/api-contract.md) 实现后，只需把 `src/api/*.js` 里的 mock 调用替换为注释中的 `request` 调用，**页面与组件代码无需改动**（返回结构保持一致：直接返回业务 `data`）。
+- mock 已对权限做了简化（例如失物「认领」未区分失主发起与发布者确认），联调时以契约第 5 节权限规则为准，并按后端实现同步微调按钮显隐逻辑。

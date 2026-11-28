@@ -157,10 +157,14 @@ onMounted(load)
             <StatusTag type="errand" :status="item.status" size="small" />
           </div>
 
+          <div v-if="item.image_url" class="detail-image">
+            <img :src="item.image_url" :alt="item.item_desc" />
+          </div>
+
           <div class="detail-route">
             <div class="detail-route__head">
               <MapPin :size="15" :stroke-width="1.5" />
-              <span>取送路线</span>
+              <span class="detail-route__kicker">起点 → 终点</span>
             </div>
             <div class="detail-route__body">
               <span class="detail-route__place">{{ item.start_location }}</span>
@@ -270,8 +274,22 @@ onMounted(load)
   color: var(--ct-accent);
 }
 
+.detail-image {
+  margin-bottom: 16px;
+  border-radius: var(--ct-radius-md);
+  border: 1px solid var(--ct-border);
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
 .detail-route {
-  padding: 16px 20px;
+  padding: 20px;
   background-color: var(--ct-bg-canvas);
   border: 1px dashed var(--ct-border-dashed);
   border-radius: var(--ct-radius-md);
@@ -281,10 +299,14 @@ onMounted(load)
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  color: var(--ct-accent);
+}
+
+.detail-route__kicker {
   font-size: var(--ct-font-size-sm);
   font-weight: 500;
-  color: var(--ct-text-tertiary);
+  color: var(--ct-text-secondary);
 }
 
 .detail-route__body {

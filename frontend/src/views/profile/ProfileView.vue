@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { ChevronRight, ClipboardList, FileText, LogOut, PenLine } from 'lucide-vue-next'
+import EditorialIllustration from '@/components/EditorialIllustration.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -49,7 +50,8 @@ function handleLogout() {
       description="管理你的资料，查看发布与接单记录。"
     />
 
-    <section class="ct-panel">
+    <section class="ct-panel profile-panel">
+      <EditorialIllustration scene="stamp" :size="88" class="profile-panel__stamp" />
       <div class="ct-panel__body profile-card">
         <div class="profile-card__user">
           <el-avatar
@@ -117,7 +119,23 @@ function handleLogout() {
   margin: 0 auto;
 }
 
+.profile-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-panel__stamp {
+  position: absolute;
+  top: -14px;
+  right: 120px;
+  opacity: 0.16;
+  pointer-events: none;
+  transform: rotate(-10deg);
+}
+
 .profile-card {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -132,13 +150,15 @@ function handleLogout() {
 }
 
 .profile-avatar {
-  background-color: var(--ct-bg-subtle);
-  color: var(--ct-text-primary);
+  background-color: var(--ct-bg-elevated);
+  border: 1px solid var(--ct-border);
+  color: var(--ct-accent);
   font-size: var(--ct-font-size-lg);
   font-weight: 600;
 }
 
 .profile-card__name {
+  font-family: var(--ct-font-serif);
   font-size: var(--ct-font-size-lg);
   font-weight: 600;
   color: var(--ct-text-primary);
@@ -160,6 +180,7 @@ function handleLogout() {
 .profile-details {
   padding-top: 4px;
   padding-bottom: 4px;
+  border-top: 1px dashed var(--ct-border-dashed);
 }
 
 .profile-nav-panel {
